@@ -54,10 +54,8 @@ class UNet3DConditionModel(ModelMixin, ConfigMixin):
     r"""
     UNet3DConditionModel is a conditional 2D UNet model that takes in a noisy sample, conditional state, and a timestep
     and returns sample shaped output.
-
     This model inherits from [`ModelMixin`]. Check the superclass documentation for the generic methods the library
     implements for all the models (such as downloading or saving, etc.)
-
     Parameters:
         sample_size (`int` or `Tuple[int, int]`, *optional*, defaults to `None`):
             Height and width of input/output sample.
@@ -86,8 +84,8 @@ class UNet3DConditionModel(ModelMixin, ConfigMixin):
     def __init__(
         self,
         sample_size: Optional[int] = None,
-        in_channels: int = 4,
-        out_channels: int = 4,
+        in_channels: int = 1,
+        out_channels: int = 1,
         down_block_types: Tuple[str] = (
             "CrossAttnDownBlock3D",
             "CrossAttnDownBlock3D",
@@ -253,10 +251,8 @@ class UNet3DConditionModel(ModelMixin, ConfigMixin):
     def set_attention_slice(self, slice_size):
         r"""
         Enable sliced attention computation.
-
         When this option is enabled, the attention module will split the input tensor in slices, to compute attention
         in several steps. This is useful to save some memory in exchange for a small speed decrease.
-
         Args:
             slice_size (`str` or `int` or `list(int)`, *optional*, defaults to `"auto"`):
                 When `"auto"`, halves the input to the attention heads, so attention will be computed in two steps. If
@@ -346,7 +342,6 @@ class UNet3DConditionModel(ModelMixin, ConfigMixin):
                 A kwargs dictionary that if specified is passed along to the `AttentionProcessor` as defined under
                 `self.processor` in
                 [diffusers.cross_attention](https://github.com/huggingface/diffusers/blob/main/src/diffusers/models/cross_attention.py).
-
         Returns:
             [`~models.unet_2d_condition.UNet3DConditionOutput`] or `tuple`:
             [`~models.unet_2d_condition.UNet3DConditionOutput`] if `return_dict` is True, otherwise a `tuple`. When
